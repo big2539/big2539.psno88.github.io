@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>แชร์กิจกรรมให้เพื่อน/กลุ่ม - PORSCHES88</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #fff;
+    }
+    .container {
+      background: #000000aa;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      max-width: 420px;
+    }
+    img.hero {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+    h1 {
+      color: #ffd167;
+      font-size: 22px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    p.desc {
+      font-size: 15px;
+      margin-bottom: 22px;
+      color: #eee;
+    }
+    button.share-btn {
+      background: linear-gradient(90deg, #ffcc33, #ff9900);
+      color: #000;
+      font-weight: 800;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.25s ease;
+    }
+    button.share-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(255,180,0,0.45);
+    }
+    small.footer {
+      display: block;
+      margin-top: 16px;
+      color: #bbb;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="hero" src="https://img5.pic.in.th/file/secure-sv1/36b49e4a-bea9-417e-a58f-788420aeb4e4.jpg" alt="PORSCHES88 โปรโมชั่น">
+
+    <h1>🎰 แจกโค้ดฟรี 100.- เพียงแชร์ให้เพื่อน</h1>
+    <p class="desc">กดปุ่มด้านล่างเพื่อแชร์ไปยังเพื่อนหรือกลุ่มใน LINE และรับสิทธิ์ฟรีทันที!</p>
+
+    <button id="shareBtn" class="share-btn">📲 กดแชร์ให้เพื่อน/กลุ่ม</button>
+
+    <small class="footer">กิจกรรมพิเศษจาก PORSCHES88 🎉</small>
+  </div>
+
+  <script>
+    const LIFF_ID = '2008464608-pE9BWr5R';
+
+    const flexMessage = {
+      type: 'flex',
+      altText: 'แจกโค้ดฟรี 100.- จาก PORSCHES88',
+      contents: {
+        type: 'bubble',
+        hero: {
+          type: 'image',
+          url: 'https://img5.pic.in.th/file/secure-sv1/36b49e4a-bea9-417e-a58f-788420aeb4e4.jpg',
+          size: 'full',
+          aspectRatio: '20:13',
+          aspectMode: 'cover'
+        },
+        body: {
+          type: 'box',
+          layout: 'vertical',
+          backgroundColor: '#0d0d0d',
+          spacing: 'md',
+          paddingAll: '16px',
+          contents: [
+            {
+              type: 'text',
+              text: '🎁 รับโค้ดฟรี 100.- แชร์กิจกรรมแล้วรับทันที!',
+              align: 'center',
+              weight: 'bold',
+              size: 'md',
+              color: '#ffd167'
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              spacing: 'sm',
+              margin: 'md',
+              contents: [
+                {
+                  type: 'button',
+                  style: 'primary',
+                  color: '#ff9900',
+                  action: {
+                    type: 'uri',
+                    label: '➡️รับโค๊ดฟรี100.-⬅️',
+                    uri: 'https://lin.ee/w8TkheW'
+                  }
+                },
+                {
+                  type: 'button',
+                  style: 'secondary',
+                  color: '#ffd167',
+                  action: {
+                    type: 'uri',
+                    label: 'porsches88',
+                    uri: 'https://porsches88.com'
+                  }
+                }
+              ]
+            },
+            {
+              type: 'text',
+              text: 'หลังแชร์แล้วแจ้งรับสิทธิ์ได้ทันที 💬',
+              align: 'center',
+              size: 'xs',
+              color: '#bbbbbb'
+            }
+          ]
+        }
+      }
+    };
+
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        document.getElementById('shareBtn').addEventListener('click', onShareClicked);
+      } catch (err) {
+        alert('กรุณาเปิดหน้านี้จากแอป LINE เพื่อใช้งานฟีเจอร์แชร์');
+      }
+    }
+
+    async function onShareClicked() {
+      if (!liff.isInClient()) {
+        alert('กรุณาเปิดหน้านี้ในแอป LINE เพื่อแชร์');
+        return;
+      }
+      try {
+        await liff.shareTargetPicker([flexMessage]);
+      } catch (err) {
+        console.error('แชร์ไม่สำเร็จ', err);
+      }
+    }
+
+    initLiff();
+  </script>
+</body>
+</html>
